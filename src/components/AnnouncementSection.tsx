@@ -23,7 +23,7 @@ const AnnouncementSection = () => {
           style={{ willChange: 'transform, opacity' }}>
 
           <p className="text-temple-gold font-body text-lg tracking-[0.4em] uppercase mb-2">
-            🙏 With the blessings of the Almighty 🙏
+            🙏 With the blessings of Sri Raja Rajasweri Devi 🙏
           </p>
 
           <h2 className="font-heading text-3xl md:text-5xl text-primary mt-6 mb-8">

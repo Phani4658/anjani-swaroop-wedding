@@ -39,18 +39,18 @@ const UnitBlock = ({
     style={{ willChange: "transform, opacity" }}
     className="flex flex-col items-center"
   >
-    <div className="relative gradient-parchment rounded-xl shadow-temple temple-border w-20 h-20 md:w-28 md:h-28 flex items-center justify-center">
+    <div className="relative gradient-parchment rounded-xl shadow-temple temple-border w-16 h-16 sm:w-20 sm:h-20 md:w-28 md:h-28 flex items-center justify-center">
       <motion.span
         key={value}
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.25, ease: "easeOut" }}
-        className="font-heading text-3xl md:text-5xl text-primary tabular-nums"
+        className="font-heading text-2xl sm:text-3xl md:text-5xl text-primary tabular-nums"
       >
         {String(value).padStart(2, "0")}
       </motion.span>
     </div>
-    <p className="font-body text-xs md:text-sm tracking-[0.25em] uppercase text-temple-gold mt-3">
+    <p className="font-body text-[10px] sm:text-xs md:text-sm tracking-[0.15em] md:tracking-[0.25em] uppercase text-temple-gold mt-2 md:mt-3">
       {label}
     </p>
   </motion.div>
@@ -104,17 +104,17 @@ const CountdownTimer = () => {
             Today is the day! 🪷
           </motion.p>
         ) : (
-          <div className="flex items-start justify-center gap-4 md:gap-8">
+          <div className="flex items-start justify-center gap-2 sm:gap-4 md:gap-8">
             <UnitBlock value={timeLeft.days} label="Days" delay={0.1} />
-            <span className="font-heading text-3xl md:text-5xl text-temple-gold mt-6 md:mt-8 select-none">
+            <span className="font-heading text-xl sm:text-3xl md:text-5xl text-temple-gold mt-4 sm:mt-6 md:mt-8 select-none">
               :
             </span>
             <UnitBlock value={timeLeft.hours} label="Hours" delay={0.2} />
-            <span className="font-heading text-3xl md:text-5xl text-temple-gold mt-6 md:mt-8 select-none">
+            <span className="font-heading text-xl sm:text-3xl md:text-5xl text-temple-gold mt-4 sm:mt-6 md:mt-8 select-none">
               :
             </span>
             <UnitBlock value={timeLeft.minutes} label="Minutes" delay={0.3} />
-            <span className="font-heading text-3xl md:text-5xl text-temple-gold mt-6 md:mt-8 select-none">
+            <span className="font-heading text-xl sm:text-3xl md:text-5xl text-temple-gold mt-4 sm:mt-6 md:mt-8 select-none">
               :
             </span>
             <UnitBlock value={timeLeft.seconds} label="Seconds" delay={0.4} />
