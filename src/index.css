@@ -1,0 +1,291 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Italianno&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* South Indian Temple Palette */
+    --background: 30 25% 95%; /* Ivory/Sandalwood */
+    --foreground: 0 30% 15%; /* Deep temple brown */
+
+    --card: 35 30% 92%; /* Warm parchment */
+    --card-foreground: 0 30% 15%;
+
+    --popover: 35 30% 92%;
+    --popover-foreground: 0 30% 15%;
+
+    --primary: 0 55% 30%; /* Deep maroon - temple walls */
+    --primary-foreground: 40 60% 94%;
+
+    --secondary: 43 80% 45%; /* Temple gold */
+    --secondary-foreground: 0 30% 10%;
+
+    --muted: 30 20% 88%; /* Sandalwood beige */
+    --muted-foreground: 20 15% 40%;
+
+    --accent: 150 40% 28%; /* Emerald green - mango leaves */
+    --accent-foreground: 40 60% 94%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 35 30% 78%;
+    --input: 35 30% 82%;
+    --ring: 43 80% 45%;
+
+    --radius: 0.5rem;
+
+    /* Custom wedding tokens */
+    --temple-gold: 43 80% 45%;
+    --temple-gold-light: 43 70% 65%;
+    --temple-gold-glow: 43 90% 55%;
+    --maroon: 0 55% 30%;
+    --maroon-deep: 0 60% 20%;
+    --maroon-light: 0 40% 45%;
+    --turmeric: 45 85% 55%;
+    --emerald: 150 40% 28%;
+    --emerald-light: 150 35% 45%;
+    --ivory: 40 40% 96%;
+    --sandalwood: 30 25% 85%;
+    --bronze: 30 50% 35%;
+
+    /* Gradients */
+    --gradient-temple: linear-gradient(180deg, hsl(0 55% 30%), hsl(0 60% 20%));
+    --gradient-gold: linear-gradient(135deg, hsl(43 80% 45%), hsl(43 90% 60%), hsl(43 80% 45%));
+    --gradient-sunrise: linear-gradient(180deg, hsl(35 70% 60%), hsl(43 80% 50%), hsl(0 55% 30%));
+    --gradient-parchment: linear-gradient(180deg, hsl(35 30% 92%), hsl(30 25% 88%));
+
+    /* Shadows */
+    --shadow-temple: 0 4px 20px hsl(0 55% 30% / 0.2);
+    --shadow-gold: 0 0 30px hsl(43 80% 45% / 0.3);
+    --shadow-diya: 0 0 20px hsl(43 90% 55% / 0.5), 0 0 60px hsl(43 80% 45% / 0.2);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+@layer components {
+  .font-script {
+    font-family: 'Great Vibes', cursive;
+  }
+
+  .font-heading {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-body {
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .text-temple-gold {
+    color: hsl(var(--temple-gold));
+  }
+
+  .bg-temple-gold {
+    background-color: hsl(var(--temple-gold));
+  }
+
+  .text-maroon {
+    color: hsl(var(--maroon));
+  }
+
+  .bg-maroon {
+    background-color: hsl(var(--maroon));
+  }
+
+  .bg-maroon-deep {
+    background-color: hsl(var(--maroon-deep));
+  }
+
+  .text-emerald-temple {
+    color: hsl(var(--emerald));
+  }
+
+  .bg-ivory {
+    background-color: hsl(var(--ivory));
+  }
+
+  .bg-sandalwood {
+    background-color: hsl(var(--sandalwood));
+  }
+
+  .text-bronze {
+    color: hsl(var(--bronze));
+  }
+
+  .gradient-temple {
+    background: var(--gradient-temple);
+  }
+
+  .gradient-gold {
+    background: var(--gradient-gold);
+  }
+
+  .gradient-sunrise {
+    background: var(--gradient-sunrise);
+  }
+
+  .gradient-parchment {
+    background: var(--gradient-parchment);
+  }
+
+  .shadow-temple {
+    box-shadow: var(--shadow-temple);
+  }
+
+  .shadow-gold {
+    box-shadow: var(--shadow-gold);
+  }
+
+  .shadow-diya {
+    box-shadow: var(--shadow-diya);
+  }
+
+  /* Temple border ornament */
+  .temple-border {
+    border: 2px solid hsl(var(--temple-gold));
+    position: relative;
+  }
+
+  .temple-border::before,
+  .temple-border::after {
+    content: '◆';
+    position: absolute;
+    color: hsl(var(--temple-gold));
+    font-size: 0.75rem;
+  }
+
+  .temple-border::before {
+    top: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .temple-border::after {
+    bottom: -0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Diya glow animation */
+  @keyframes diya-glow {
+    0%, 100% { 
+      box-shadow: 0 0 15px hsl(43 90% 55% / 0.4), 0 0 45px hsl(43 80% 45% / 0.15);
+    }
+    50% { 
+      box-shadow: 0 0 25px hsl(43 90% 55% / 0.6), 0 0 65px hsl(43 80% 45% / 0.25);
+    }
+  }
+
+  .animate-diya-glow {
+    animation: diya-glow 3s ease-in-out infinite;
+  }
+
+  /* Bell swing animation */
+  @keyframes bell-swing {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(8deg); }
+    75% { transform: rotate(-8deg); }
+  }
+
+  .animate-bell-swing {
+    animation: bell-swing 4s ease-in-out infinite;
+    transform-origin: top center;
+  }
+
+  /* Petal fall animation */
+  @keyframes petal-fall {
+    0% {
+      transform: translateY(-10vh) rotate(0deg) translateX(0);
+      opacity: 1;
+    }
+    50% {
+      transform: translateY(45vh) rotate(180deg) translateX(30px);
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(100vh) rotate(360deg) translateX(-20px);
+      opacity: 0;
+    }
+  }
+
+  .animate-petal-fall {
+    animation: petal-fall linear infinite;
+  }
+
+  /* Rangoli draw animation */
+  @keyframes rangoli-draw {
+    from { 
+      opacity: 0;
+      transform: scale(0.8) rotate(-10deg);
+    }
+    to { 
+      opacity: 0.15;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  .animate-rangoli {
+    animation: rangoli-draw 2s ease-out forwards;
+  }
+
+  /* Gold shimmer */
+  @keyframes gold-shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .animate-gold-shimmer {
+    background: linear-gradient(
+      90deg,
+      hsl(var(--temple-gold)) 0%,
+      hsl(var(--temple-gold-glow)) 50%,
+      hsl(var(--temple-gold)) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gold-shimmer 3s linear infinite;
+  }
+
+  /* Decorative divider */
+  .temple-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: hsl(var(--temple-gold));
+  }
+
+  .temple-divider::before,
+  .temple-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--temple-gold)), transparent);
+  }
+}
