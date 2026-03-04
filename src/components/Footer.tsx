@@ -22,6 +22,17 @@ const Footer = () => {
             <span className="text-xs">✦</span>
           </div>
 
+          <p className="font-body text-primary-foreground/50 text-sm tracking-widest uppercase mb-1">
+            Share your blessings & memories
+          </p>
+          <p className="animate-gold-shimmer font-heading text-3xl md:text-4xl tracking-[0.2em] mb-6">
+            #SWAN
+          </p>
+
+          <div className="temple-divider max-w-xs mx-auto mb-6">
+            <span className="text-xs">✦</span>
+          </div>
+
           <p className="font-body text-primary-foreground/40 text-sm italic">
             "ధర్మేచ అర్థేచ కామేచ నాతిచరామి"
           </p>

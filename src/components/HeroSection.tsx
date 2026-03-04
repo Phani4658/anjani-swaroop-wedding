@@ -22,6 +22,8 @@ const HeroSection = () => {
         <img
           src={heroTemple}
           alt="South Indian Temple Gopuram at sunrise"
+          fetchPriority="high"
+          decoding="async"
           className="w-full h-full object-cover"
           style={{ transform: 'translateZ(0)' }} />
 
@@ -94,6 +96,17 @@ const HeroSection = () => {
 
             </p>
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 2.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-5"
+          style={{ willChange: 'opacity, transform' }}>
+          <p className="animate-gold-shimmer font-heading text-2xl md:text-3xl tracking-[0.2em]">
+            #SWAN
+          </p>
         </motion.div>
       </motion.div>
 

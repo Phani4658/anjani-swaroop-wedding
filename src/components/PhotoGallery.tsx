@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import TempleDivider from "./TempleDivider";
 
 const photos = [
@@ -7,11 +7,15 @@ const photos = [
   { id: 2, src: "/image2.jpeg", alt: "Anjani & Swaroop Photo 2" },
   { id: 3, src: "/image3.jpeg", alt: "Anjani & Swaroop Photo 3" },
   { id: 4, src: "/image4.jpeg", alt: "Anjani & Swaroop Photo 4" },
+  { id: 5, src: "/image5.jpg", alt: "Anjani & Swaroop Photo 5" },
 ];
+
+// Duplicate for seamless infinite loop
+const loopedPhotos = [...photos, ...photos, ...photos];
 
 const PhotoGallery = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
+  const isPausedRef = useRef(false);
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -19,38 +23,52 @@ const PhotoGallery = () => {
 
     let animationId: number;
     let lastTimestamp = 0;
-    const scrollSpeed = 0.5; // pixels per frame
+    const scrollSpeed = 1.5; // pixels per frame at 60fps
 
     const autoScroll = (timestamp: number) => {
-      if (!isPaused && scrollContainer) {
+      if (!isPausedRef.current && scrollContainer) {
         const deltaTime = timestamp - lastTimestamp;
-        
-        if (deltaTime > 16) { // ~60fps
-          const currentScroll = scrollContainer.scrollLeft;
-          const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
 
-          if (currentScroll >= maxScroll) {
-            // Loop back to start
-            scrollContainer.scrollLeft = 0;
-          } else {
-            scrollContainer.scrollLeft += scrollSpeed;
+        if (deltaTime > 0) {
+          const oneThird = scrollContainer.scrollWidth / 3;
+          scrollContainer.scrollLeft += scrollSpeed * Math.min(deltaTime / 16, 3);
+
+          if (scrollContainer.scrollLeft >= oneThird * 2) {
+            scrollContainer.scrollLeft -= oneThird;
           }
-          
+
           lastTimestamp = timestamp;
         }
+      } else {
+        // Keep lastTimestamp in sync while paused so there's no jump on resume
+        lastTimestamp = timestamp;
       }
-      
+
       animationId = requestAnimationFrame(autoScroll);
     };
+
+    // Resume on pointer/touch release anywhere on the page
+    const resume = () => { isPausedRef.current = false; };
+    window.addEventListener("pointerup", resume);
+    window.addEventListener("touchend", resume);
+    window.addEventListener("touchcancel", resume);
+
+    // Reset timestamp after tab switch to avoid a position jump
+    const onVisibilityChange = () => {
+      if (!document.hidden) lastTimestamp = 0;
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     animationId = requestAnimationFrame(autoScroll);
 
     return () => {
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-      }
+      cancelAnimationFrame(animationId);
+      window.removeEventListener("pointerup", resume);
+      window.removeEventListener("touchend", resume);
+      window.removeEventListener("touchcancel", resume);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
-  }, [isPaused]);
+  }, []);
 
   return (
     <section className="py-10 md:py-14 bg-background overflow-hidden">
@@ -75,21 +93,22 @@ const PhotoGallery = () => {
       {/* Horizontal scroll strip */}
       <div
         ref={scrollContainerRef}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        className="flex gap-5 overflow-x-auto scroll-smooth px-8 md:px-16 pb-6"
-        style={{ scrollbarWidth: "thin", scrollbarColor: "hsl(var(--temple-gold)) transparent" }}
+        onMouseEnter={() => { isPausedRef.current = true; }}
+        onMouseLeave={() => { isPausedRef.current = false; }}
+        onTouchStart={() => { isPausedRef.current = true; }}
+        className="flex gap-5 overflow-x-auto px-8 md:px-16 pb-6"
+        style={{ scrollbarWidth: "none", scrollBehavior: "auto" }}
       >
-        {photos.map((photo, index) => (
+        {loopedPhotos.map((photo, index) => (
           <motion.div
-            key={photo.id}
+            key={`${photo.id}-${index}`}
             initial={{ opacity: 0, y: 40, scale: 0.92 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
             whileHover={{ y: -8, scale: 1.03, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
-            className="flex-none w-64 md:w-72 relative group cursor-pointer"
-            style={{ height: "22rem", willChange: 'transform, opacity' }}
+            className="flex-none w-72 md:w-96 relative group cursor-pointer"
+            style={{ height: "26rem", willChange: 'transform, opacity' }}
           >
             {/* Glow shadow on hover */}
             <div className="absolute inset-0 rounded-2xl bg-temple-gold/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 scale-95" />
@@ -98,6 +117,8 @@ const PhotoGallery = () => {
               <img
                 src={photo.src}
                 alt={photo.alt}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
 

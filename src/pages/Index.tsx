@@ -5,11 +5,15 @@ import VenueSection from "@/components/VenueSection";
 import LiveStreamSection from "@/components/LiveStreamSection";
 import Footer from "@/components/Footer";
 import PhotoGallery from "@/components/PhotoGallery";
+import CountdownTimer from "@/components/CountdownTimer";
+import SplashScreen from "@/components/SplashScreen";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background overflow-x-hidden">
+      <SplashScreen />
       <HeroSection />
+      <CountdownTimer />
       <PhotoGallery />
       <AnnouncementSection />
       <EventsTimeline />

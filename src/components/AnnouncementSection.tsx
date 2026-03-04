@@ -44,7 +44,7 @@ const AnnouncementSection = () => {
               <p className="font-body text-muted-foreground text-base uppercase tracking-wider mb-2">
                 Daughter of
               </p>
-              <p className="font-heading text-xl md:text-2xl text-primary">Sri Kurapati Venkata Rammohan rao
+              <p className="font-heading text-xl md:text-2xl text-primary">Sri Kurapati Venkata Ramamohan rao
 
               </p>
               <p className="font-body text-foreground text-lg">& Smt. Aruna Devi

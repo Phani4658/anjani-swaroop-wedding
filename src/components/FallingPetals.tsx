@@ -13,7 +13,9 @@ const FallingPetals = () => {
   const [petals, setPetals] = useState<Petal[]>([]);
 
   useEffect(() => {
-    const generated: Petal[] = Array.from({ length: 20 }, (_, i) => ({
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    const count = isMobile ? 10 : 20;
+    const generated: Petal[] = Array.from({ length: count }, (_, i) => ({
       id: i,
       left: Math.random() * 100,
       delay: Math.random() * 8,
