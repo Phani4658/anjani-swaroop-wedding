@@ -81,15 +81,25 @@ const SplashScreen = () => {
             </motion.span>
           ))}
 
-          {/* Logo */}
-          <motion.img
-            src="/logo.png"
-            alt="Anjani & Swaroop"
-            className="w-40 md:w-52 mb-8 drop-shadow-lg"
-            initial={{ opacity: 0, scale: 0.8, y: -10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          />
+          {/* Diya */}
+          <motion.div
+            className="text-5xl mb-4 animate-diya-glow inline-block rounded-full p-3"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          >
+            🪔
+          </motion.div>
+
+          {/* Names */}
+          <motion.p
+            className="font-script text-5xl md:text-6xl text-primary-foreground mb-1"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Anjani &amp; Swaroop
+          </motion.p>
 
           {/* Gold divider */}
           <motion.div
