@@ -17,7 +17,7 @@ const SplashScreen = () => {
   useEffect(() => {
     let loaded = 0;
     const total = IMAGE_SRCS.length;
-    const minDelay = new Promise<void>((res) => setTimeout(res, 2500));
+    const maxDelay = new Promise<void>((res) => setTimeout(res, 2000));
 
     const imagesDone = new Promise<void>((res) => {
       IMAGE_SRCS.forEach((src) => {
@@ -30,7 +30,8 @@ const SplashScreen = () => {
       });
     });
 
-    Promise.all([minDelay, imagesDone]).then(() => setVisible(false));
+    // Dismiss as soon as images load OR 2s passes — whichever comes first
+    Promise.race([maxDelay, imagesDone]).then(() => setVisible(false));
   }, []);
 
   return (
