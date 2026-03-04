@@ -24,7 +24,8 @@ const LiveStreamSection = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          style={{ willChange: 'transform, opacity' }}
         >
           <p className="font-body text-temple-gold-light/70 text-lg tracking-[0.4em] uppercase mb-2">
             Witness The Ceremony
@@ -42,8 +43,9 @@ const LiveStreamSection = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           className="rounded-2xl overflow-hidden border-2 border-temple-gold/30 shadow-2xl bg-maroon-deep/60 backdrop-blur-sm"
+          style={{ willChange: 'transform, opacity' }}
         >
           <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
             <iframe

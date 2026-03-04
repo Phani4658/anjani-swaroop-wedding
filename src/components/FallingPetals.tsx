@@ -36,6 +36,7 @@ const FallingPetals = () => {
             animationDuration: `${petal.duration}s`,
             width: petal.size,
             height: petal.size,
+            transform: 'translateZ(0)',
           }}
         >
           <div
@@ -47,6 +48,8 @@ const FallingPetals = () => {
                   : "radial-gradient(circle, #ff9933, #ff6600)",
               opacity: 0.8,
               borderRadius: petal.type === "jasmine" ? "50% 50% 50% 0" : "50%",
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden' as const,
             }}
           />
         </div>

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 import TempleDivider from "./TempleDivider";
 
 const photos = [
@@ -9,6 +10,48 @@ const photos = [
 ];
 
 const PhotoGallery = () => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isPaused, setIsPaused] = useState(false);
+
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (!scrollContainer) return;
+
+    let animationId: number;
+    let lastTimestamp = 0;
+    const scrollSpeed = 0.5; // pixels per frame
+
+    const autoScroll = (timestamp: number) => {
+      if (!isPaused && scrollContainer) {
+        const deltaTime = timestamp - lastTimestamp;
+        
+        if (deltaTime > 16) { // ~60fps
+          const currentScroll = scrollContainer.scrollLeft;
+          const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+          if (currentScroll >= maxScroll) {
+            // Loop back to start
+            scrollContainer.scrollLeft = 0;
+          } else {
+            scrollContainer.scrollLeft += scrollSpeed;
+          }
+          
+          lastTimestamp = timestamp;
+        }
+      }
+      
+      animationId = requestAnimationFrame(autoScroll);
+    };
+
+    animationId = requestAnimationFrame(autoScroll);
+
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [isPaused]);
+
   return (
     <section className="py-10 md:py-14 bg-background overflow-hidden">
       {/* Section heading */}
@@ -17,7 +60,8 @@ const PhotoGallery = () => {
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        style={{ willChange: 'transform, opacity' }}
       >
         <p className="font-body text-temple-gold text-sm tracking-[0.35em] uppercase mb-3">
           Our Moments
@@ -30,6 +74,9 @@ const PhotoGallery = () => {
 
       {/* Horizontal scroll strip */}
       <div
+        ref={scrollContainerRef}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
         className="flex gap-5 overflow-x-auto scroll-smooth px-8 md:px-16 pb-6"
         style={{ scrollbarWidth: "thin", scrollbarColor: "hsl(var(--temple-gold)) transparent" }}
       >
@@ -39,10 +86,10 @@ const PhotoGallery = () => {
             initial={{ opacity: 0, y: 40, scale: 0.92 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, delay: index * 0.12, ease: "easeOut" }}
-            whileHover={{ y: -8, scale: 1.03 }}
+            transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+            whileHover={{ y: -8, scale: 1.03, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
             className="flex-none w-64 md:w-72 relative group cursor-pointer"
-            style={{ height: "22rem" }}
+            style={{ height: "22rem", willChange: 'transform, opacity' }}
           >
             {/* Glow shadow on hover */}
             <div className="absolute inset-0 rounded-2xl bg-temple-gold/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 scale-95" />

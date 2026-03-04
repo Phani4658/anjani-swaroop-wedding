@@ -19,7 +19,8 @@ const AnnouncementSection = () => {
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}>
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          style={{ willChange: 'transform, opacity' }}>
 
           <p className="text-temple-gold font-body text-lg tracking-[0.4em] uppercase mb-2">
             🙏 With the blessings of the Almighty 🙏
@@ -36,7 +37,8 @@ const AnnouncementSection = () => {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              style={{ willChange: 'transform, opacity' }}
               className="gradient-parchment rounded-lg p-6 shadow-temple temple-border">
 
               <p className="font-body text-muted-foreground text-base uppercase tracking-wider mb-2">
@@ -59,7 +61,8 @@ const AnnouncementSection = () => {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              style={{ willChange: 'transform, opacity' }}
               className="gradient-parchment rounded-lg p-6 shadow-temple temple-border">
 
               <p className="font-body text-muted-foreground text-base uppercase tracking-wider mb-2">

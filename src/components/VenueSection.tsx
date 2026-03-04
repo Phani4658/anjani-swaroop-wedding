@@ -20,7 +20,8 @@ const VenueSection = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{ willChange: 'transform, opacity' }}
           >
             <p className="font-body text-temple-gold text-lg tracking-[0.4em] uppercase mb-2">
               Where It All Happens
@@ -37,8 +38,9 @@ const VenueSection = () => {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="mt-12 gradient-parchment rounded-lg shadow-temple temple-border overflow-hidden"
+            style={{ willChange: 'transform, opacity' }}
           >
             <div className="p-8 md:p-12">
               <div className="text-4xl mb-4">🛕</div>

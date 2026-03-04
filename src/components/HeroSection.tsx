@@ -18,11 +18,12 @@ const HeroSection = () => {
   return (
     <section ref={ref} className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Parallax Background */}
-      <motion.div className="absolute inset-0" style={{ y: bgY, scale }}>
+      <motion.div className="absolute inset-0" style={{ y: bgY, scale, willChange: 'transform' }}>
         <img
           src={heroTemple}
           alt="South Indian Temple Gopuram at sunrise"
-          className="w-full h-full object-cover" />
+          className="w-full h-full object-cover"
+          style={{ transform: 'translateZ(0)' }} />
 
         <div className="absolute inset-0 bg-gradient-to-b from-maroon-deep/60 via-maroon/40 to-maroon-deep/80" />
       </motion.div>
@@ -38,11 +39,11 @@ const HeroSection = () => {
       </motion.div>
 
       {/* Parallax Content */}
-      <motion.div className="relative z-20 text-center px-4 max-w-4xl" style={{ y: contentY, opacity }}>
+      <motion.div className="relative z-20 text-center px-4 max-w-4xl" style={{ y: contentY, opacity, willChange: 'transform, opacity' }}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}>
+          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}>
 
           <p className="font-body text-temple-gold-light text-lg md:text-xl tracking-[0.3em] uppercase mb-4">
             Shubh Vivah
@@ -52,8 +53,9 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.6 }}
-          className="mb-6">
+          transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-6"
+          style={{ willChange: 'transform, opacity' }}>
 
           <h1 className="font-script text-5xl md:text-7xl lg:text-8xl text-primary-foreground leading-tight">Anjani
 
@@ -69,7 +71,8 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 1.2 }}>
+          transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          style={{ willChange: 'transform, opacity' }}>
 
           <p className="font-body text-primary-foreground/80 text-lg md:text-xl italic mb-2">
             "సర్వే జనాః సుఖినో భవంతు"
@@ -82,8 +85,9 @@ const HeroSection = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.8 }}
-          className="mt-10">
+          transition={{ duration: 1, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-10"
+          style={{ willChange: 'opacity' }}>
 
           <div className="animate-diya-glow inline-block px-8 py-3 rounded-full border border-temple-gold/50 bg-maroon-deep/50 backdrop-blur-sm">
             <p className="font-heading text-temple-gold-light text-lg md:text-xl tracking-wider">March 08, 2026
@@ -96,9 +100,9 @@ const HeroSection = () => {
       {/* Scroll indicator */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
-        style={{ opacity }}
+        style={{ opacity, willChange: 'transform' }}
         animate={{ y: [0, 10, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}>
+        transition={{ duration: 2, repeat: Infinity, ease: [0.45, 0.05, 0.55, 0.95] }}>
 
         <div className="w-6 h-10 rounded-full border-2 border-temple-gold/50 flex items-start justify-center p-1.5">
           <div className="w-1.5 h-3 rounded-full bg-temple-gold/70" />

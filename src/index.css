@@ -202,55 +202,69 @@
   }
 
   .animate-diya-glow {
-    animation: diya-glow 3s ease-in-out infinite;
+    animation: diya-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    will-change: box-shadow;
+    backface-visibility: hidden;
   }
 
   /* Bell swing animation */
   @keyframes bell-swing {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(8deg); }
-    75% { transform: rotate(-8deg); }
+    0%, 100% { 
+      transform: rotate(0deg) translateZ(0); 
+    }
+    25% { 
+      transform: rotate(8deg) translateZ(0); 
+    }
+    75% { 
+      transform: rotate(-8deg) translateZ(0); 
+    }
   }
 
   .animate-bell-swing {
-    animation: bell-swing 4s ease-in-out infinite;
+    animation: bell-swing 4s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
     transform-origin: top center;
+    will-change: transform;
+    backface-visibility: hidden;
   }
 
   /* Petal fall animation */
   @keyframes petal-fall {
     0% {
-      transform: translateY(-10vh) rotate(0deg) translateX(0);
+      transform: translateY(-10vh) rotate(0deg) translateX(0) translateZ(0);
       opacity: 1;
     }
     50% {
-      transform: translateY(45vh) rotate(180deg) translateX(30px);
+      transform: translateY(45vh) rotate(180deg) translateX(30px) translateZ(0);
       opacity: 0.8;
     }
     100% {
-      transform: translateY(100vh) rotate(360deg) translateX(-20px);
+      transform: translateY(100vh) rotate(360deg) translateX(-20px) translateZ(0);
       opacity: 0;
     }
   }
 
   .animate-petal-fall {
-    animation: petal-fall linear infinite;
+    animation: petal-fall cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
   }
 
   /* Rangoli draw animation */
   @keyframes rangoli-draw {
     from { 
       opacity: 0;
-      transform: scale(0.8) rotate(-10deg);
+      transform: scale(0.8) rotate(-10deg) translateZ(0);
     }
     to { 
       opacity: 0.15;
-      transform: scale(1) rotate(0deg);
+      transform: scale(1) rotate(0deg) translateZ(0);
     }
   }
 
   .animate-rangoli {
-    animation: rangoli-draw 2s ease-out forwards;
+    animation: rangoli-draw 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
   }
 
   /* Gold shimmer */
@@ -270,7 +284,9 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gold-shimmer 3s linear infinite;
+    animation: gold-shimmer 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    will-change: background-position;
+    backface-visibility: hidden;
   }
 
   /* Decorative divider */
