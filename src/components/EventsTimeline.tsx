@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import TempleDivider from "./TempleDivider";
+import CalendarIcon from "./CalendarIcon";
 
 const events = [
   {
@@ -79,8 +80,8 @@ const EventsTimeline = () => {
                   index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
               >
-                <div className={`flex-1 ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
-                  <div className="bg-maroon-deep/60 backdrop-blur-sm border border-temple-gold/20 rounded-lg p-6 shadow-temple">
+                <div className={`w-full md:flex-1 md:max-w-md ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
+                  <div className="bg-maroon-deep/60 backdrop-blur-sm border border-temple-gold/20 rounded-lg p-6 shadow-temple w-full">
                     <div className="text-3xl mb-2">{event.icon}</div>
                     <h3 className="font-heading text-xl md:text-2xl text-temple-gold-light">
                       {event.title}
@@ -89,8 +90,16 @@ const EventsTimeline = () => {
                       {event.subtitle}
                     </p>
                     <div className="mt-3 space-y-1">
-                      <p className="font-body text-primary-foreground/90 text-base">
-                        📅 {event.date}
+                      <p className="font-body text-primary-foreground/90 text-base flex items-center gap-2 justify-start">
+                        <span className="flex-shrink-0">
+                          <CalendarIcon 
+                            month={event.date.split(' ')[0].slice(0, 3).toUpperCase()} 
+                            day={parseInt(event.date.split(' ')[1].replace(',', ''))} 
+                            size="sm"
+                            dayColor="text-primary-foreground"
+                          />
+                        </span>
+                        <span>{event.date}</span>
                       </p>
                       <p className="font-body text-temple-gold text-base font-semibold">
                         🕐 {event.time}

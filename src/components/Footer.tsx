@@ -45,6 +45,23 @@ const Footer = () => {
             <span>🌺</span>
             <span className="animate-diya-glow inline-block rounded-full p-2">🪔</span>
           </div>
+
+          <div className="mt-10 pt-8 border-t border-temple-gold/20">
+            <p className="font-body text-temple-gold-light text-sm md:text-base mb-3 font-medium">
+              Invited by Sri Lakshmi Lavanya Jewellery and Sri Lakshmi Lavanya Gold Palace
+            </p>
+            <p className="font-body text-primary-foreground/60 text-sm md:text-base">
+              Created by{" "}
+              <a 
+                href="https://www.instagram.com/snap.celebrate/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-temple-gold hover:text-temple-gold-light transition-colors font-medium underline decoration-temple-gold/30 hover:decoration-temple-gold-light"
+              >
+                @snap.celebrate
+              </a>
+            </p>
+          </div>
         </motion.div>
       </div>
     </footer>

@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import TempleDivider from "./TempleDivider";
+import CalendarIcon from "./CalendarIcon";
 
 const VenueSection = () => {
   const ref = useRef<HTMLElement>(null);
@@ -55,22 +56,34 @@ const VenueSection = () => {
                </p>
 
                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                {[
-                  { icon: "🪷", label: "Muhurtham", value: "9:15 AM" },
-                  { icon: "📅", label: "Pelli", value: "March 8, 2026" },
-                  { icon: "🍽️", label: "Reception", value: "March 7, 8 PM" },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="bg-background/50 rounded-lg p-4 border border-temple-gold/20"
-                  >
-                    <div className="text-2xl mb-1">{item.icon}</div>
-                    <p className="font-body text-muted-foreground text-sm uppercase tracking-wider">
-                      {item.label}
-                    </p>
-                    <p className="font-heading text-primary text-lg">{item.value}</p>
+                {/* Muhurtham */}
+                <div className="bg-background/50 rounded-lg p-4 border border-temple-gold/20">
+                  <div className="text-2xl mb-1">🪷</div>
+                  <p className="font-body text-muted-foreground text-sm uppercase tracking-wider">
+                    Muhurtham
+                  </p>
+                  <p className="font-heading text-primary text-lg">9:15 AM</p>
+                </div>
+
+                {/* Pelli - Custom Calendar */}
+                <div className="bg-background/50 rounded-lg p-4 border border-temple-gold/20">
+                  <div className="mb-1">
+                    <CalendarIcon month="MAR" day={8} dayColor="text-maroon-deep" />
                   </div>
-                ))}
+                  <p className="font-body text-muted-foreground text-sm uppercase tracking-wider mt-2">
+                    Pelli
+                  </p>
+                  <p className="font-heading text-primary text-lg">March 8, 2026</p>
+                </div>
+
+                {/* Reception */}
+                <div className="bg-background/50 rounded-lg p-4 border border-temple-gold/20">
+                  <div className="text-2xl mb-1">🍽️</div>
+                  <p className="font-body text-muted-foreground text-sm uppercase tracking-wider">
+                    Reception
+                  </p>
+                  <p className="font-heading text-primary text-lg">March 7, 8 PM</p>
+                </div>
               </div>
 
               {/* Map embed */}
