@@ -1,48 +1,33 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import TempleDivider from "./TempleDivider";
 import CalendarIcon from "./CalendarIcon";
 
 const VenueSection = () => {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-
-  const cardY = useTransform(scrollYProgress, [0, 1], [80, -30]);
-  const headingY = useTransform(scrollYProgress, [0, 1], [40, -15]);
-
   return (
-    <section ref={ref} className="py-10 md:py-14 bg-background relative overflow-hidden">
+    <section className="py-10 md:py-14 bg-background relative overflow-hidden">
       <div className="container max-w-4xl mx-auto px-4 text-center">
-        <motion.div style={{ y: headingY }}>
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            style={{ willChange: 'transform, opacity' }}
-          >
-            <p className="font-body text-temple-gold text-lg tracking-[0.4em] uppercase mb-2">
-              Where It All Happens
-            </p>
-            <h2 className="font-heading text-3xl md:text-5xl text-primary">
-              The Venue
-            </h2>
-            <TempleDivider className="max-w-xs mx-auto" />
-          </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="font-body text-temple-gold text-lg tracking-[0.4em] uppercase mb-2">
+            Where It All Happens
+          </p>
+          <h2 className="font-heading text-3xl md:text-5xl text-primary">
+            The Venue
+          </h2>
+          <TempleDivider className="max-w-xs mx-auto" />
         </motion.div>
 
-        <motion.div style={{ y: cardY }}>
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-12 gradient-parchment rounded-lg shadow-temple temple-border overflow-hidden"
-            style={{ willChange: 'transform, opacity' }}
-          >
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-12 gradient-parchment rounded-lg shadow-temple temple-border overflow-hidden"
+        >
             <div className="p-8 md:p-12">
               <div className="text-4xl mb-4">🛕</div>
                <h3 className="font-heading text-2xl md:text-3xl text-primary mb-2">
@@ -110,7 +95,6 @@ const VenueSection = () => {
                 📍 Get Directions
               </a>
             </div>
-          </motion.div>
         </motion.div>
 
       </div>

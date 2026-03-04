@@ -37,14 +37,11 @@ const EventsTimeline = () => {
     offset: ["start end", "end start"],
   });
 
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "-15%"]);
+  // Keep only the timeline line animation (lightweight, GPU composited)
   const lineHeight = useTransform(scrollYProgress, [0.1, 0.9], ["0%", "100%"]);
 
   return (
-    <section ref={ref} className="py-10 md:py-14 relative overflow-hidden">
-      {/* Parallax background */}
-      <motion.div className="absolute inset-0 gradient-temple" style={{ y: bgY, scaleY: 1.3 }} />
-
+    <section ref={ref} className="py-10 md:py-14 relative overflow-hidden gradient-temple">
       <div className="container max-w-4xl mx-auto px-4 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -72,16 +69,16 @@ const EventsTimeline = () => {
             {events.map((event, index) => (
               <motion.div
                 key={event.title}
-                initial={{ opacity: 0, y: 60, x: index % 2 === 0 ? -50 : 50 }}
-                whileInView={{ opacity: 1, y: 0, x: 0 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.7, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`relative flex flex-col md:flex-row items-center gap-4 md:gap-8 ${
                   index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
                 }`}
               >
                 <div className={`w-full md:flex-1 md:max-w-md ${index % 2 === 0 ? "md:text-right" : "md:text-left"}`}>
-                  <div className="bg-maroon-deep/60 backdrop-blur-sm border border-temple-gold/20 rounded-lg p-6 shadow-temple w-full">
+                  <div className="bg-maroon-deep/80 border border-temple-gold/20 rounded-lg p-6 shadow-temple w-full">
                     <div className="text-3xl mb-2">{event.icon}</div>
                     <h3 className="font-heading text-xl md:text-2xl text-temple-gold-light">
                       {event.title}
@@ -92,9 +89,9 @@ const EventsTimeline = () => {
                     <div className="mt-3 space-y-1">
                       <p className="font-body text-primary-foreground/90 text-base flex items-center gap-2 justify-start">
                         <span className="flex-shrink-0">
-                          <CalendarIcon 
-                            month={event.date.split(' ')[0].slice(0, 3).toUpperCase()} 
-                            day={parseInt(event.date.split(' ')[1].replace(',', ''))} 
+                          <CalendarIcon
+                            month={event.date.split(' ')[0].slice(0, 3).toUpperCase()}
+                            day={parseInt(event.date.split(' ')[1].replace(',', ''))}
                             size="sm"
                             dayColor="text-primary-foreground"
                           />

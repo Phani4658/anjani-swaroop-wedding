@@ -1,26 +1,17 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import TempleDivider from "./TempleDivider";
 
 const AnnouncementSection = () => {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  const contentY = useTransform(scrollYProgress, [0, 1], [60, -20]);
-
   return (
-    <section ref={ref} className="py-10 md:py-14 bg-background relative overflow-hidden">
+    <section className="py-10 md:py-14 bg-background relative overflow-hidden">
 
-      <motion.div className="container max-w-3xl mx-auto px-4 text-center" style={{ y: contentY }}>
+      <div className="container max-w-3xl mx-auto px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          style={{ willChange: 'transform, opacity' }}>
+        >
 
           <p className="text-temple-gold font-body text-lg tracking-[0.4em] uppercase mb-2">
             🙏 With the blessings of Sri Raja Rajasweri Devi 🙏
@@ -38,7 +29,6 @@ const AnnouncementSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              style={{ willChange: 'transform, opacity' }}
               className="gradient-parchment rounded-lg p-6 shadow-temple temple-border">
 
               <p className="font-body text-muted-foreground text-base uppercase tracking-wider mb-2">
@@ -62,7 +52,6 @@ const AnnouncementSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              style={{ willChange: 'transform, opacity' }}
               className="gradient-parchment rounded-lg p-6 shadow-temple temple-border">
 
               <p className="font-body text-muted-foreground text-base uppercase tracking-wider mb-2">
@@ -90,7 +79,7 @@ const AnnouncementSection = () => {
             Request the pleasure of your gracious presence at the wedding ceremony of their beloved children
           </motion.p>
         </motion.div>
-      </motion.div>
+      </div>
     </section>);
 
 };

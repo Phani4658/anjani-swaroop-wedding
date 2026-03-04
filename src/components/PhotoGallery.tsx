@@ -16,6 +16,14 @@ const loopedPhotos = [...photos, ...photos, ...photos];
 const PhotoGallery = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isPausedRef = useRef(false);
+  const pauseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const scheduleResume = () => {
+    if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+    pauseTimerRef.current = setTimeout(() => {
+      isPausedRef.current = false;
+    }, 2500);
+  };
 
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
@@ -48,7 +56,10 @@ const PhotoGallery = () => {
     };
 
     // Resume on pointer/touch release anywhere on the page
-    const resume = () => { isPausedRef.current = false; };
+    const resume = () => {
+      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+      isPausedRef.current = false;
+    };
     window.addEventListener("pointerup", resume);
     window.addEventListener("touchend", resume);
     window.addEventListener("touchcancel", resume);
@@ -63,6 +74,7 @@ const PhotoGallery = () => {
 
     return () => {
       cancelAnimationFrame(animationId);
+      if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
       window.removeEventListener("pointerup", resume);
       window.removeEventListener("touchend", resume);
       window.removeEventListener("touchcancel", resume);
@@ -79,7 +91,6 @@ const PhotoGallery = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        style={{ willChange: 'transform, opacity' }}
       >
         <p className="font-body text-temple-gold text-sm tracking-[0.35em] uppercase mb-3">
           Our Moments
@@ -91,51 +102,47 @@ const PhotoGallery = () => {
       </motion.div>
 
       {/* Horizontal scroll strip */}
-      <div
-        ref={scrollContainerRef}
-        onMouseEnter={() => { isPausedRef.current = true; }}
-        onMouseLeave={() => { isPausedRef.current = false; }}
-        onTouchStart={() => { isPausedRef.current = true; }}
-        className="flex gap-5 overflow-x-auto px-8 md:px-16 pb-6"
-        style={{ scrollbarWidth: "none", scrollBehavior: "auto" }}
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       >
-        {loopedPhotos.map((photo, index) => (
-          <motion.div
-            key={`${photo.id}-${index}`}
-            initial={{ opacity: 0, y: 40, scale: 0.92 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
-            whileHover={{ y: -8, scale: 1.03, transition: { duration: 0.3, ease: [0.16, 1, 0.3, 1] } }}
-            className="flex-none w-72 md:w-96 relative group cursor-pointer"
-            style={{ height: "26rem", willChange: 'transform, opacity' }}
-          >
-            {/* Glow shadow on hover */}
-            <div className="absolute inset-0 rounded-2xl bg-temple-gold/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 scale-95" />
+        <div
+          ref={scrollContainerRef}
+          onMouseEnter={() => { isPausedRef.current = true; scheduleResume(); }}
+          onMouseLeave={() => {
+            if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+            isPausedRef.current = false;
+          }}
+          onTouchStart={() => { isPausedRef.current = true; scheduleResume(); }}
+          className="flex gap-5 overflow-x-auto px-8 md:px-16 pb-6"
+          style={{ scrollbarWidth: "none", scrollBehavior: "auto" }}
+        >
+          {loopedPhotos.map((photo, index) => (
+            <div
+              key={`${photo.id}-${index}`}
+              className="flex-none w-[365px] md:w-96 relative group cursor-pointer transition-transform duration-300 hover:-translate-y-3"
+              style={{ height: "26rem" }}
+            >
+              <div className="w-full h-full rounded-2xl overflow-hidden border-2 border-temple-gold/30 group-hover:border-temple-gold/70 transition-all duration-300 shadow-lg group-hover:shadow-[0_12px_35px_hsl(43_80%_45%/0.35)]">
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
 
-            <div className="w-full h-full rounded-2xl overflow-hidden border-2 border-temple-gold/30 group-hover:border-temple-gold/70 transition-colors duration-400 shadow-lg">
-              <img
-                src={photo.src}
-                alt={photo.alt}
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-
-              {/* Gradient overlay on hover */}
-              <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-2xl flex items-end justify-center pb-5">
-                <span className="text-2xl">🪷</span>
+                {/* Gradient overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-maroon-deep/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex items-end justify-center pb-5">
+                  <span className="text-2xl">🪷</span>
+                </div>
               </div>
             </div>
-
-            {/* Corner decorations */}
-            <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-temple-gold/60 rounded-tl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-temple-gold/60 rounded-tr-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-temple-gold/60 rounded-bl-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-temple-gold/60 rounded-br-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </motion.div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 };
