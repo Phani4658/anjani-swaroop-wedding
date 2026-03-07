@@ -4,7 +4,7 @@ import TempleDivider from "./TempleDivider";
 
 // Replace YOUTUBE_VIDEO_ID with your actual YouTube live stream video ID
 // e.g. for https://www.youtube.com/watch?v=abc123, the ID is "abc123"
-const YOUTUBE_VIDEO_ID = "YOUR_YOUTUBE_VIDEO_ID";
+const YOUTUBE_VIDEO_ID = "UmdedReTDcQ";
 
 const LiveStreamSection = () => {
   const ref = useRef<HTMLElement>(null);
